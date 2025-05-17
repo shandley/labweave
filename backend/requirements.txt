@@ -2,7 +2,7 @@
 fastapi==0.110.0
 uvicorn[standard]==0.27.0
 python-dotenv==1.0.1
-pydantic==2.5.3
+pydantic[email]==2.5.3
 pydantic-settings==2.1.0
 
 # Database
@@ -37,3 +37,6 @@ ipython==8.20.0
 
 # File handling
 python-magic==0.4.27
+
+# HTTP client for testing
+requests==2.32.3

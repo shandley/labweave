@@ -144,6 +144,28 @@ class AutomatedFixer:
                     init_file.touch()
                     self.fixes_applied.append(f"Created {init_file}")
                     return True
+        
+        # Fix missing email-validator for pydantic
+        if "email-validator is not installed" in error_text:
+            print("🔧 Installing email-validator for Pydantic...")
+            # Update requirements.txt to use pydantic[email]
+            req_file = self.backend_dir / "requirements.txt"
+            content = req_file.read_text()
+            if "pydantic==" in content and "[email]" not in content:
+                new_content = content.replace("pydantic==", "pydantic[email]==")
+                req_file.write_text(new_content)
+                
+                # Install the dependency
+                venv_pip = self.backend_dir / "venv" / "bin" / "pip"
+                if not venv_pip.exists():
+                    venv_pip = self.backend_dir / "venv" / "Scripts" / "pip.exe"
+                
+                pip_cmd = str(venv_pip) if venv_pip.exists() else "pip"
+                subprocess.run([pip_cmd, "install", "pydantic[email]"], check=True)
+                
+                self.fixes_applied.append("Installed email-validator for Pydantic")
+                return True
+        
         return False
     
     def run_automated_fixes(self) -> bool:

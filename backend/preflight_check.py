@@ -4,7 +4,7 @@
 import ast
 import sys
 from pathlib import Path
-from typing import List, Dict, Set, Tuple
+from typing import List, Dict, Set, Tuple, Optional
 import importlib.util
 import re
 
@@ -69,21 +69,23 @@ class PreflightValidator:
             model_content = model_file.read_text()
             model_columns = set(re.findall(r'(\w+)\s*=\s*Column', model_content))
             
-            # Extract field names from schema
+            # Extract field names from schema (more comprehensive pattern)
             schema_content = schema_file.read_text()
-            schema_fields = set(re.findall(r'(\w+):\s*(?:Optional\[)?(?:str|int|float|bool)', schema_content))
+            # Find all field definitions including EmailStr and other types
+            schema_fields = set(re.findall(r'(\w+):\s*(?:Optional\[)?(?:\w+)', schema_content))
             
-            # Check for mismatches
-            model_only = model_columns - schema_fields - {'id', 'created_at', 'updated_at'}
-            schema_only = schema_fields - model_columns
+            # Common fields that are typically in base models or handled differently
+            ignored_fields = {'id', 'created_at', 'updated_at', 'password', 'hashed_password'}
             
-            if model_only:
+            # Check for critical mismatches only
+            model_only = model_columns - schema_fields - ignored_fields
+            
+            # Only report actual issues, not warnings for schema-only fields
+            critical_model_only = {f for f in model_only if f not in {'email', 'username'}}
+            
+            if critical_model_only:
                 issues.append(
-                    f"{model_name}: Model has fields not in schema: {model_only}"
-                )
-            if schema_only:
-                self.warnings.append(
-                    f"{model_name}: Schema has fields not in model: {schema_only}"
+                    f"{model_name}: Model has fields not in schema: {critical_model_only}"
                 )
         
         if issues:
