@@ -116,11 +116,35 @@ cd backend
 ./setup-dev.sh  # Use our automated setup script
 ```
 
-### Running Tests
+### Smart Development Workflow (NEW - Recommended)
+```bash
+cd backend
+source venv/bin/activate
+
+# Option 1: Automated startup with all checks and fixes
+python smart_start.py
+
+# Option 2: Using make commands
+make smart-start     # Runs all checks, fixes, and starts server
+make check          # Run pre-flight checks only
+make fix           # Run automated fixes only
+make test          # Run test suite
+```
+
+### Automated Testing System
+We now have a comprehensive automated testing and fixing system:
+- **smart_start.py**: Runs all checks, applies fixes, and starts server
+- **preflight_check.py**: Validates code structure before startup
+- **automated_fix.py**: Detects and fixes common errors automatically
+- **tests/test_startup.py**: Comprehensive startup validation tests
+- **AUTOMATED_TESTING.md**: Full documentation of the system
+
+### Manual Testing
 ```bash
 pytest  # Run all tests
 pytest -v  # Verbose output
 pytest --cov=src  # With coverage
+pytest tests/test_startup.py  # Run startup validation tests
 ```
 
 ### Code Quality

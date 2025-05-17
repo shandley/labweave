@@ -122,11 +122,43 @@ source venv/bin/activate  # Linux/macOS
 
 ### Development Workflow
 
+#### NEW: Automated Smart Start (Recommended)
+```bash
+cd backend
+source venv/bin/activate
+python smart_start.py  # Runs all checks, fixes issues, and starts server
+```
+
+This smart startup system:
+- Validates code structure before starting
+- Automatically fixes common issues
+- Runs comprehensive tests
+- Manages database services
+- Starts the server with proper error handling
+
+#### Alternative: Using Make Commands
+```bash
+make smart-start  # Full automated startup
+make check       # Pre-flight checks only
+make fix         # Automated fixes only
+make test        # Run test suite
+```
+
+#### Traditional Workflow
 1. Always activate virtual environment before working
 2. Keep dependencies updated: `pip install --upgrade -r requirements.txt`
 3. Run tests before committing: `pytest`
 4. Use the linter: `ruff check .`
 5. Format code: `black .`
+
+### Automated Testing System Documentation
+
+For full details on the automated testing system, see:
+- `/backend/AUTOMATED_TESTING.md` - Complete documentation
+- `/backend/smart_start.py` - Main automation script
+- `/backend/preflight_check.py` - Pre-flight validation
+- `/backend/automated_fix.py` - Error detection and fixing
+- `/backend/tests/test_startup.py` - Startup validation tests
 
 ### CI/CD Considerations
 
