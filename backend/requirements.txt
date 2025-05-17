@@ -40,3 +40,6 @@ python-magic==0.4.27
 
 # HTTP client for testing
 requests==2.32.3
+
+# Knowledge Graph
+neo4j==5.17.0

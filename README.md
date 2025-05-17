@@ -21,10 +21,18 @@ A comprehensive research operations platform that unifies knowledge management, 
 - File organization with automatic structure and user customization
 
 ### In Progress 🟨
-- Neo4j integration for knowledge graph
+- Advanced document metadata extraction
 - Complete API endpoint implementation
 - Error handling and validation
-- Advanced document metadata extraction
+- Frontend development
+
+### Completed Recently 🆕
+- **Neo4j integration for knowledge graph** - Implemented with full API
+- Node and relationship management
+- Full-text search capabilities
+- Path finding between entities
+- Automatic graph creation on document upload
+- Version relationships tracking
 
 ## Overview
 
@@ -162,6 +170,15 @@ The API is accessible at `http://localhost:8000` when running locally.
   - `GET /api/v1/documents/{document_id}/versions` - List all versions
   - `GET /api/v1/documents/{document_id}/versions/{version_number}` - Get specific version
   - `POST /api/v1/documents/{document_id}/restore/{version_number}` - Restore old version
+- **Knowledge Graph** (Neo4j):
+  - `GET /api/v1/knowledge-graph/health` - Check Neo4j connection status
+  - `POST /api/v1/knowledge-graph/nodes` - Create a node
+  - `GET /api/v1/knowledge-graph/nodes/{node_id}` - Get node details
+  - `POST /api/v1/knowledge-graph/relationships` - Create a relationship
+  - `GET /api/v1/knowledge-graph/nodes/{node_id}/relationships` - Get node relationships
+  - `GET /api/v1/knowledge-graph/nodes/{node_id}/related` - Get related nodes
+  - `POST /api/v1/knowledge-graph/search` - Search the knowledge graph
+  - `GET /api/v1/knowledge-graph/path/{start_id}/{end_id}` - Find path between nodes
 
 ## Key Features
 
@@ -181,6 +198,15 @@ The API is accessible at `http://localhost:8000` when running locally.
 - Phylogenetic trees: `.nwk`, `.tree`, `.nxs`
 - Data tables: `.tsv`, `.csv`, `.txt`
 - Documentation: `.pdf`
+
+### Knowledge Graph (Neo4j)
+- **Graph-based Relationships**: Connect documents, projects, experiments, and samples
+- **Automatic Graph Creation**: Nodes and relationships created on entity creation
+- **Version Tracking**: Document versions linked in the graph
+- **Advanced Search**: Full-text search across graph entities
+- **Path Finding**: Discover connections between any two entities
+- **Flexible Schema**: Support for various node types (User, Project, Document, etc.)
+- **Rich Relationships**: Multiple relationship types (CREATED_BY, BELONGS_TO, VERSION_OF, etc.)
 
 ## Architecture
 

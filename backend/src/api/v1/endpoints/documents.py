@@ -13,6 +13,8 @@ from src.api.v1.endpoints.auth import get_db, get_current_user
 from src.models.document import Document as DocumentModel
 from src.models.user import User
 from src.schemas.document import Document, DocumentCreate, DocumentUpdate, DocumentUploadResponse, DocumentVersion
+from src.knowledge_graph.service import knowledge_graph
+from src.knowledge_graph.models import DocumentNode, UserNode, RelationType, GraphRelationship
 
 router = APIRouter()
 
@@ -121,6 +123,37 @@ async def upload_document(
     db.commit()
     db.refresh(db_document)
     
+    # Create knowledge graph nodes and relationships
+    try:
+        # Create document node
+        doc_node = DocumentNode(
+            document_id=db_document.id,
+            title=title,
+            file_type=file_extension,
+            document_type=document_type
+        )
+        knowledge_graph.create_node(doc_node)
+        
+        # Create user node
+        user_node = UserNode(
+            user_id=current_user.id,
+            username=current_user.username,
+            email=current_user.email
+        )
+        knowledge_graph.create_node(user_node)
+        
+        # Create relationships
+        knowledge_graph.create_document_uploaded_event(
+            document_id=db_document.id,
+            user_id=current_user.id,
+            project_id=project_id,
+            experiment_id=experiment_id
+        )
+    except Exception as e:
+        # Log error but don't fail the upload
+        import logging
+        logging.error(f"Failed to create knowledge graph entries: {e}")
+    
     return DocumentUploadResponse(
         id=db_document.id,
         file_path=db_document.file_path,
@@ -205,6 +238,29 @@ async def upload_new_version(
     db.add(new_doc)
     db.commit()
     db.refresh(new_doc)
+    
+    # Create version relationship in knowledge graph
+    try:
+        # Create new document node
+        new_doc_node = DocumentNode(
+            document_id=new_doc.id,
+            title=new_doc.title,
+            file_type=file_extension,
+            document_type=new_doc.document_type,
+            version_number=new_version
+        )
+        knowledge_graph.create_node(new_doc_node)
+        
+        # Create version relationship
+        knowledge_graph.create_relationship(GraphRelationship(
+            type=RelationType.VERSION_OF,
+            source_id=f"document_{new_doc.id}",
+            target_id=f"document_{document_id}",
+            properties={"version_number": new_version, "version_comment": version_comment}
+        ))
+    except Exception as e:
+        import logging
+        logging.error(f"Failed to create version relationship in knowledge graph: {e}")
     
     return new_doc
 
