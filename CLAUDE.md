@@ -37,6 +37,7 @@ The prompt remains the north star for requirements while other documents capture
 3. AI features last (after core functionality is stable)
 4. PubMed integration as primary external knowledge source
 5. Calendar integration for shared equipment/facilities (Cal.com preferred)
+6. Frontend development after backend MVP completion (not in parallel)
 
 ### Known Issues & Solutions
 - **Python 3.13 Compatibility**: Use Python 3.11.x until ecosystem catches up
@@ -65,8 +66,15 @@ The prompt remains the north star for requirements while other documents capture
 5. Keep security in mind but don't over-engineer initially
 6. Git repository: https://github.com/shandley/labweave
 7. Use Python 3.11 for compatibility and stability
-8. Follow test-driven development where possible
+8. Iterate quickly with basic tests for MVP, comprehensive testing post-concept validation
 9. Maintain comprehensive documentation as we build
+
+### File Format Support (Omics Data)
+Initial support planned for:
+- Sequencing data: FASTQ, FASTA, SAM, BAM
+- Analysis outputs: Count tables, taxonomy tables
+- Phylogenetic data: Tree files (Newick, Nexus)
+- Architecture designed for easy format expansion
 
 ### File Organization
 - `/instructions/` - Core project documentation

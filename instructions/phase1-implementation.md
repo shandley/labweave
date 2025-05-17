@@ -84,15 +84,25 @@ This document tracks the implementation progress of Phase 1: Knowledge Managemen
 - Encountered Python compatibility issues with latest versions
 
 ## Blockers & Issues
-- Python 3.13 compatibility issues with pydantic/psycopg2
-- Need to set up proper Python environment with compatible versions
+- Python 3.13 compatibility issues with pydantic/psycopg2 (Solution: Use Python 3.11.x)
+- User has not tested the implementation yet
+- Neo4j integration not started
 
 ## Next Steps
-1. Set up Python 3.11 environment for better compatibility
+1. User to test Python 3.11 environment setup using setup-dev.sh
 2. Complete database connections (especially Neo4j)
 3. Implement remaining CRUD endpoints
-4. Add document management features
+4. Add document management features with omics file support
 5. Set up knowledge graph functionality
+
+## Development Strategy Update
+- Rapid iteration for MVP with basic tests
+- Comprehensive testing post-concept validation
+- Focus on PostgreSQL features first, then Neo4j integration
+- Support multiple omics file formats (FASTQ, FASTA, SAM, BAM, count tables, taxonomy tables, phylogenetic trees)
+- Frontend development begins after backend MVP completion
+- File storage using filesystem with PostgreSQL path references
+- Dedicated /api/v1/files/ endpoint for omics data handling
 
 ## Success Metrics
 - [ ] All document CRUD operations working
