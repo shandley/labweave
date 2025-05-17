@@ -1,0 +1,16 @@
+# Optional dependencies for future features
+
+# Neo4j for knowledge graph (Phase 2)
+neo4j==5.17.0
+
+# AI/ML (Phase 3) - Note: These have dependency conflicts that need resolution
+# torch==2.1.2
+# transformers==4.37.2
+# langchain==0.1.5
+# openai==1.10.0
+# anthropic==0.15.0
+# google-generativeai==0.3.2
+
+# Task processing (Future)
+# celery==5.3.4
+# apache-airflow==2.8.1  # Conflicts with SQLAlchemy 2.x
