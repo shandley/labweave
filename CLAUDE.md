@@ -9,12 +9,17 @@ Always consult these core documents when discussing LabWeave implementation:
 - `/Users/scotthandley/Code/labweave/instructions/tech-stack.md` - Technology stack decisions and architecture
 - `/Users/scotthandley/Code/labweave/instructions/mvp-plan.md` - MVP roadmap focusing on knowledge management → LIMS → AI
 - `/Users/scotthandley/Code/labweave/instructions/api-design.md` - RESTful API design patterns and endpoints
+- `/Users/scotthandley/Code/labweave/instructions/phase1-implementation.md` - Current implementation progress tracker
+- `/Users/scotthandley/Code/labweave/instructions/python-compatibility-analysis.md` - Python version requirements and analysis
+- `/Users/scotthandley/Code/labweave/instructions/development-setup-guide.md` - Developer environment setup instructions
 
 ### Document Relationships
 
 - **labweave-prompt.md**: Serves as the stable requirements document defining WHAT to build
 - **tech-stack.md**: Details HOW to build it with specific technology choices
 - **CLAUDE.md**: Captures CURRENT FOCUS and implementation priorities
+- **phase1-implementation.md**: Tracks actual implementation progress and blockers
+- **development-setup-guide.md**: Practical instructions for getting started
 
 The prompt remains the north star for requirements while other documents capture evolving implementation decisions.
 
@@ -33,11 +38,18 @@ The prompt remains the north star for requirements while other documents capture
 4. PubMed integration as primary external knowledge source
 5. Calendar integration for shared equipment/facilities (Cal.com preferred)
 
+### Known Issues & Solutions
+- **Python 3.13 Compatibility**: Use Python 3.11.x until ecosystem catches up
+- **Database Setup**: Ensure Docker services are running before starting backend
+- **Import Errors**: Always activate virtual environment before running code
+
 ### Technology Decisions
+- **Python Version**: 3.11.x (3.13 not yet supported due to ecosystem compatibility)
 - **Backend**: Python/FastAPI with PostgreSQL and Neo4j
 - **Frontend**: React with TypeScript
 - **AI/ML**: PyTorch locally + OpenAI/Claude/Gemini APIs
 - **Omics Tools**: Biopython, BioBERT, RDKit for domain-specific needs
+- **Development Tools**: Black, Ruff, pytest for code quality
 
 ### What NOT to Focus On (Yet)
 - Mobile/field work capabilities (see `/future-ideas/mobile-field-work.md`)
@@ -52,16 +64,67 @@ The prompt remains the north star for requirements while other documents capture
 4. Design APIs first for frontend-backend separation
 5. Keep security in mind but don't over-engineer initially
 6. Git repository: https://github.com/shandley/labweave
+7. Use Python 3.11 for compatibility and stability
+8. Follow test-driven development where possible
+9. Maintain comprehensive documentation as we build
 
 ### File Organization
 - `/instructions/` - Core project documentation
-- `/src/` - Source code (to be created)
-- `/tests/` - Test files (to be created)
+- `/backend/src/` - Backend source code (FastAPI application)
+- `/backend/tests/` - Backend test files
+- `/frontend/src/` - Frontend source code (React application)
+- `/infrastructure/docker/` - Docker compose and infrastructure configs
 - `/docs/` - API and user documentation (to be created)
 - `/future-ideas/` - Features for later consideration
+
+## Current Implementation Status
+
+### Completed (Phase 1)
+- ✅ Project structure and organization
+- ✅ Backend API skeleton with FastAPI
+- ✅ Database models (User, Project, Experiment, Protocol, Sample)
+- ✅ Authentication system with JWT
+- ✅ Basic CRUD endpoints
+- ✅ Test framework setup
+- ✅ Development environment configuration
+
+### In Progress
+- 🟨 Database connections (PostgreSQL working, Neo4j pending)
+- 🟨 Complete API endpoint implementation
+- 🟨 Error handling and validation
+
+### Next Steps
+1. Resolve Python environment setup (use Python 3.11)
+2. Complete Neo4j integration for knowledge graph
+3. Implement document management endpoints
+4. Add file upload capabilities for omics data
+5. Create first frontend components
+
+## Development Tips
+
+### Environment Setup
+```bash
+cd backend
+./setup-dev.sh  # Use our automated setup script
+```
+
+### Running Tests
+```bash
+pytest  # Run all tests
+pytest -v  # Verbose output
+pytest --cov=src  # With coverage
+```
+
+### Code Quality
+```bash
+black .  # Format code
+ruff check .  # Lint code
+mypy .  # Type checking
+```
 
 ## Remember
 - LabWeave aims to be transformative, not just another ELN/LIMS
 - Focus on scientist-friendly UX over technical complexity
 - The platform should adapt to researchers, not vice versa
 - AI should augment human intelligence, not replace it
+- Always test with realistic scientific workflows

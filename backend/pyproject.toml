@@ -1,0 +1,63 @@
+[tool.poetry]
+name = "labweave"
+version = "0.1.0"
+description = "A comprehensive research operations platform for omics research"
+authors = ["LabWeave Team"]
+readme = "README.md"
+python = ">=3.11,<3.13"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.13"
+fastapi = "^0.110.0"
+uvicorn = {extras = ["standard"], version = "^0.27.0"}
+python-dotenv = "^1.0.1"
+pydantic = "^2.5.3"
+sqlalchemy = "^2.0.25"
+alembic = "^1.13.1"
+psycopg2-binary = "^2.9.9"
+neo4j = "^5.17.0"
+redis = "^5.0.1"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+python-multipart = "^0.0.6"
+biopython = "^1.83"
+numpy = "^1.26.3"
+pandas = "^2.2.0"
+scipy = "^1.12.0"
+celery = "^5.3.4"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.4"
+pytest-asyncio = "^0.21.1"
+pytest-cov = "^4.1.0"
+httpx = "^0.26.0"
+black = "^23.12.1"
+ruff = "^0.1.14"
+mypy = "^1.8.0"
+ipython = "^8.20.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+select = ["E", "F", "I", "N", "UP", "B", "A", "COM", "C4", "DTZ", "ISC", "ICN", "PIE", "T20", "PYI", "Q", "RSE", "RET", "SLF", "SIM", "TID", "TCH", "ARG", "PTH", "PD", "PL", "TRY", "NPY", "RUF"]
+ignore = ["E501", "B008", "B905"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v --cov=src --cov-report=html --cov-report=term"

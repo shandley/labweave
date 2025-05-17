@@ -1,0 +1,70 @@
+#!/bin/bash
+# Development environment setup script for LabWeave backend
+
+echo "Setting up LabWeave backend development environment..."
+
+# Check for Python 3.11
+if command -v python3.11 &> /dev/null; then
+    echo "✓ Python 3.11 found"
+    PYTHON_CMD=python3.11
+elif command -v python3 &> /dev/null; then
+    # Check if python3 is 3.11.x
+    PYTHON_VERSION=$(python3 --version | cut -d " " -f 2 | cut -d "." -f 1,2)
+    if [ "$PYTHON_VERSION" = "3.11" ]; then
+        echo "✓ Python 3.11 found"
+        PYTHON_CMD=python3
+    else
+        echo "❌ Python 3.11 required, found Python $PYTHON_VERSION"
+        echo "Please install Python 3.11:"
+        echo "  - macOS: brew install python@3.11"
+        echo "  - Ubuntu: sudo apt install python3.11"
+        exit 1
+    fi
+else
+    echo "❌ Python not found. Please install Python 3.11"
+    exit 1
+fi
+
+# Create virtual environment
+echo "Creating virtual environment..."
+$PYTHON_CMD -m venv venv
+
+# Activate virtual environment
+echo "Activating virtual environment..."
+source venv/bin/activate
+
+# Upgrade pip
+echo "Upgrading pip..."
+pip install --upgrade pip
+
+# Install requirements
+if [ -f "requirements.txt" ]; then
+    echo "Installing requirements..."
+    pip install -r requirements.txt
+else
+    echo "⚠️  requirements.txt not found, installing minimal requirements..."
+    pip install fastapi uvicorn[standard] sqlalchemy alembic pytest
+fi
+
+# Create .env file if it doesn't exist
+if [ ! -f ".env" ]; then
+    echo "Creating .env file from template..."
+    cp .env.example .env
+    echo "⚠️  Please update .env with your configuration"
+fi
+
+# Create necessary directories
+mkdir -p logs
+mkdir -p uploads
+
+echo ""
+echo "✅ Development environment setup complete!"
+echo ""
+echo "To activate the environment, run:"
+echo "  source venv/bin/activate"
+echo ""
+echo "To start the development server, run:"
+echo "  uvicorn src.main:app --reload"
+echo ""
+echo "To run tests, run:"
+echo "  pytest"

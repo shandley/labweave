@@ -19,7 +19,7 @@ LabWeave transforms how scientific research is conducted by:
 
 ### Prerequisites
 
-- Python 3.11+
+- Python 3.11.x (Note: Python 3.13 not yet supported due to dependency compatibility)
 - Node.js 18+
 - Docker & Docker Compose
 - Git
@@ -35,7 +35,9 @@ cd labweave
 2. Set up the backend
 ```bash
 cd backend
-python -m venv venv
+./setup-dev.sh  # Automated setup script
+# OR manually:
+python3.11 -m venv venv
 source venv/bin/activate  # On Windows: .\venv\Scripts\activate
 pip install -r requirements.txt
 ```
