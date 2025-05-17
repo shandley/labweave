@@ -8,6 +8,21 @@ A comprehensive research operations platform that unifies knowledge management, 
 
 🚧 Under active development - MVP in progress
 
+### Completed ✅
+- Project structure and organization
+- Backend API skeleton with FastAPI
+- Database models (User, Project, Experiment, Protocol, Sample)
+- Authentication system with JWT
+- Basic CRUD endpoints
+- Test framework setup
+- Development environment configuration
+
+### In Progress 🟨
+- Database connections (PostgreSQL working, Neo4j pending)
+- Complete API endpoint implementation
+- Error handling and validation
+- Document management system
+
 ## Overview
 
 LabWeave transforms how scientific research is conducted by:
@@ -42,51 +57,109 @@ cd labweave
 ```bash
 cd backend
 ./setup-dev.sh  # Automated setup script
+
 # OR manually:
 python3.11 -m venv venv
 source venv/bin/activate  # On Windows: .\venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-3. Set up the frontend
-```bash
-cd ../frontend
-npm install
-```
-
-4. Start infrastructure services
+3. Start infrastructure services
 ```bash
 cd ../infrastructure/docker
 docker-compose up -d
 ```
 
-5. Run database migrations
+4. Run database migrations
 ```bash
 cd ../../backend
 alembic upgrade head
 ```
 
-6. Start development servers
+5. Start development server
 ```bash
-# Terminal 1 - Backend
+# Backend (in activated virtual environment)
 cd backend
 uvicorn src.main:app --reload
 
-# Terminal 2 - Frontend
-cd frontend
-npm run dev
+# Access the API documentation at http://localhost:8000/docs
 ```
+
+### Smart Development Workflow (Recommended)
+
+We provide automated tools for development:
+
+```bash
+cd backend
+source venv/bin/activate
+
+# Automated startup with all checks and fixes
+python smart_start.py
+
+# OR using make commands
+make smart-start     # Runs all checks, fixes, and starts server
+make check          # Run pre-flight checks only
+make fix           # Run automated fixes only
+make test          # Run test suite
+```
+
+## API Endpoints
+
+The API is accessible at `http://localhost:8000` when running locally.
+
+### Available Endpoints
+
+- **Root**: `GET /` - Welcome message and API info
+- **API Documentation**: `GET /docs` - Interactive API documentation (Swagger UI)
+- **ReDoc**: `GET /redoc` - Alternative API documentation
+
+#### API v1 Endpoints (`/api/v1`)
+
+- **Health Check**: `GET /api/v1/health` - System health status
+- **Authentication**:
+  - `POST /api/v1/auth/register` - User registration
+  - `POST /api/v1/auth/login` - User login
+  - `POST /api/v1/auth/refresh` - Refresh access token
+- **Users**:
+  - `GET /api/v1/users/me` - Get current user
+  - `GET /api/v1/users/{user_id}` - Get user by ID
+  - `PUT /api/v1/users/{user_id}` - Update user
+- **Projects**:
+  - `GET /api/v1/projects` - List projects
+  - `POST /api/v1/projects` - Create project
+  - `GET /api/v1/projects/{project_id}` - Get project details
+  - `PUT /api/v1/projects/{project_id}` - Update project
+  - `DELETE /api/v1/projects/{project_id}` - Delete project
+- **Experiments**:
+  - `GET /api/v1/experiments` - List experiments
+  - `POST /api/v1/experiments` - Create experiment
+  - `GET /api/v1/experiments/{experiment_id}` - Get experiment details
+  - `PUT /api/v1/experiments/{experiment_id}` - Update experiment
+  - `DELETE /api/v1/experiments/{experiment_id}` - Delete experiment
+- **Protocols**:
+  - `GET /api/v1/protocols` - List protocols
+  - `POST /api/v1/protocols` - Create protocol
+  - `GET /api/v1/protocols/{protocol_id}` - Get protocol details
+  - `PUT /api/v1/protocols/{protocol_id}` - Update protocol
+  - `DELETE /api/v1/protocols/{protocol_id}` - Delete protocol
+- **Samples**:
+  - `GET /api/v1/samples` - List samples
+  - `POST /api/v1/samples` - Create sample
+  - `GET /api/v1/samples/{sample_id}` - Get sample details
+  - `PUT /api/v1/samples/{sample_id}` - Update sample
+  - `DELETE /api/v1/samples/{sample_id}` - Delete sample
 
 ## Architecture
 
 ### Technology Stack
 - **Backend**: Python 3.11 + FastAPI
-- **Databases**: PostgreSQL (primary) + Neo4j (knowledge graph)
-- **Frontend**: React 18 with TypeScript
+- **Databases**: PostgreSQL (primary) + Neo4j (knowledge graph) + Redis (caching)
+- **Frontend**: React 18 with TypeScript (planned)
 - **AI/ML**: PyTorch + Cloud APIs (OpenAI, Claude, Gemini)
-- **Infrastructure**: Docker, Redis, MinIO
-- **Testing**: pytest, React Testing Library
+- **Infrastructure**: Docker, MinIO (object storage)
+- **Testing**: pytest, httpx
 - **Code Quality**: Black, Ruff, mypy
+- **Bioinformatics**: Biopython, NumPy, pandas, SciPy, NetworkX
 
 ### Project Structure
 ```
@@ -96,30 +169,35 @@ labweave/
 │   │   ├── api/         # API endpoints
 │   │   ├── models/      # Database models
 │   │   ├── schemas/     # Pydantic schemas
-│   │   └── core/        # Core utilities
+│   │   ├── core/        # Core utilities
+│   │   └── db/          # Database configuration
 │   ├── tests/           # Backend tests
-│   └── alembic/         # Database migrations
-├── frontend/            # React frontend
+│   ├── alembic/         # Database migrations
+│   └── smart_start.py   # Automated development startup
+├── frontend/            # React frontend (planned)
 ├── infrastructure/      # Docker and configs
-└── instructions/        # Project documentation
+├── instructions/        # Project documentation
+└── docs/                # API documentation
 ```
 
 ## Documentation
 
 ### Core Documentation
-- [Project Overview](instructions/labweave-overview.md)
-- [Implementation Requirements](instructions/labweave-prompt.md)
-- [Technology Stack](instructions/tech-stack.md)
-- [MVP Plan](instructions/mvp-plan.md)
-- [API Design](instructions/api-design.md)
+- [Project Overview](instructions/labweave-overview.md) - Vision and goals
+- [Implementation Requirements](instructions/labweave-prompt.md) - Detailed requirements
+- [Technology Stack](instructions/tech-stack.md) - Architecture decisions
+- [MVP Plan](instructions/mvp-plan.md) - Development roadmap
+- [API Design](instructions/api-design.md) - REST API patterns
 
 ### Development Guides
 - [Development Setup Guide](instructions/development-setup-guide.md)
 - [Python Compatibility Analysis](instructions/python-compatibility-analysis.md)
 - [Phase 1 Implementation Tracker](instructions/phase1-implementation.md)
+- [CLAUDE.md](CLAUDE.md) - Current implementation focus
 
 ### API Documentation
-- Available at `/docs` when running the backend server
+- Interactive docs available at `/docs` when running the backend server
+- ReDoc available at `/redoc`
 - OpenAPI specification at `/openapi.json`
 
 ## Development
@@ -130,10 +208,8 @@ labweave/
 cd backend
 pytest
 pytest --cov=src  # With coverage
-
-# Frontend tests
-cd frontend
-npm test
+pytest -v         # Verbose output
+pytest tests/test_startup.py  # Run startup validation tests
 ```
 
 ### Code Quality
@@ -144,10 +220,9 @@ black .          # Format code
 ruff check .     # Lint
 mypy .          # Type checking
 
-# Frontend
-cd frontend
-npm run lint     # ESLint
-npm run format   # Prettier
+# All quality checks at once
+make check      # Runs all checks
+make fix        # Runs all fixes
 ```
 
 ### Common Issues
@@ -169,28 +244,53 @@ npm run format   # Prettier
 
 ## Features
 
-### Phase 1 (Current)
+### Phase 1 (Current Focus)
 - ✅ User authentication with JWT
 - ✅ Basic project and experiment management
 - ✅ Sample tracking for metagenomics
+- ✅ Protocol management
 - 🟨 Document management with version control
 - 🟨 Knowledge graph for entity relationships
+- 🟨 File upload for omics data
 
 ### Phase 2 (Planned)
 - ⬜ PubMed integration
-- ⬜ Equipment scheduling
+- ⬜ Equipment scheduling (Cal.com integration)
 - ⬜ Advanced search capabilities
 - ⬜ Collaborative features
+- ⬜ Batch operations
+- ⬜ Data visualization
 
 ### Phase 3 (Future)
 - ⬜ AI-powered insights
 - ⬜ Automated analysis pipelines
 - ⬜ Multi-lab federation
+- ⬜ Mobile field work support
 
 ## Contributing
 
 This project is in early development. Please contact the maintainers before contributing.
 
+### Development Workflow
+1. Create a feature branch from `main`
+2. Make your changes
+3. Run tests and code quality checks
+4. Submit a pull request
+
+### Code Style
+- Python: Black formatter, Ruff linter
+- Follow PEP 8 guidelines
+- Comprehensive docstrings for all functions
+- Type hints for function parameters
+
 ## License
 
 [License pending]
+
+## Contact
+
+For questions about LabWeave, please contact the project maintainers.
+
+---
+
+**Note**: This is an active development project. Features and APIs are subject to change.

@@ -73,7 +73,23 @@ def main():
             dir_path.mkdir()
             print(f"📁 Created missing directory: {dir_name}")
     
-    # Step 5: Check if databases are running
+    # Step 5: Run documentation manager
+    print("\n📚 Checking documentation...")
+    doc_result = subprocess.run(
+        f"{python_cmd} doc_manager.py",
+        shell=True,
+        capture_output=True,
+        text=True
+    )
+    
+    if doc_result.returncode == 0:
+        print("✅ Documentation check complete")
+        if doc_result.stdout and "Documentation Updates:" in doc_result.stdout:
+            print("📝 Documentation was updated automatically")
+    else:
+        print("⚠️  Documentation check failed (non-critical)")
+    
+    # Step 6: Check if databases are running
     print("\n🔍 Checking database services...")
     docker_check = subprocess.run(
         "docker ps | grep -E '(postgres|neo4j|redis)'",
@@ -90,7 +106,7 @@ def main():
     else:
         print("✅ Database services are running")
     
-    # Step 6: Start the server
+    # Step 7: Start the server
     print("\n🌟 Starting LabWeave server...")
     print("="*40)
     

@@ -1,16 +1,18 @@
 # LabWeave Backend Makefile
 
-.PHONY: help install test start smart-start check fix clean
+.PHONY: help install test start smart-start check fix clean docs docs-advanced
 
 help:
 	@echo "LabWeave Backend Commands:"
-	@echo "  make install      - Install dependencies"
-	@echo "  make test         - Run all tests"
-	@echo "  make start        - Start server (basic)"
-	@echo "  make smart-start  - Start with all checks and fixes"
-	@echo "  make check        - Run pre-flight checks only"
-	@echo "  make fix          - Run automated fixes"
-	@echo "  make clean        - Clean cache files"
+	@echo "  make install       - Install dependencies"
+	@echo "  make test          - Run all tests"
+	@echo "  make start         - Start server (basic)"
+	@echo "  make smart-start   - Start with all checks and fixes"
+	@echo "  make check         - Run pre-flight checks only"
+	@echo "  make fix           - Run automated fixes"
+	@echo "  make docs          - Update documentation (basic)"
+	@echo "  make docs-advanced - Update documentation (full analysis)"
+	@echo "  make clean         - Clean cache files"
 
 install:
 	pip install -r requirements.txt
@@ -29,6 +31,12 @@ check:
 
 fix:
 	source venv/bin/activate && python automated_fix.py
+
+docs:
+	source venv/bin/activate && python doc_manager.py
+
+docs-advanced:
+	source venv/bin/activate && python doc_manager_advanced.py
 
 clean:
 	find . -type f -name "*.pyc" -delete

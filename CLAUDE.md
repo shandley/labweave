@@ -87,6 +87,8 @@ Initial support planned for:
 
 ## Current Implementation Status
 
+_Last automated check: 2025-05-16 20:53_
+
 ### Completed (Phase 1)
 - ✅ Project structure and organization
 - ✅ Backend API skeleton with FastAPI
@@ -95,6 +97,67 @@ Initial support planned for:
 - ✅ Basic CRUD endpoints
 - ✅ Test framework setup
 - ✅ Development environment configuration
+- ✅ Automated documentation management system
+
+### In Progress
+- 🟨 Database connections (PostgreSQL working, Neo4j pending)
+- 🟨 Complete API endpoint implementation
+- 🟨 Error handling and validation
+
+### Next Steps
+1. Resolve Python environment setup (use Python 3.11)
+2. Complete Neo4j integration for knowledge graph
+3. Implement document management endpoints
+4. Add file upload capabilities for omics data
+5. Create first frontend components### Completed (Phase 1)
+- ✅ Project structure and organization
+- ✅ Backend API skeleton with FastAPI
+- ✅ Database models (User, Project, Experiment, Protocol, Sample)
+- ✅ Authentication system with JWT
+- ✅ Basic CRUD endpoints
+- ✅ Test framework setup
+- ✅ Development environment configuration
+- ✅ Automated documentation management system
+
+### In Progress
+- 🟨 Database connections (PostgreSQL working, Neo4j pending)
+- 🟨 Complete API endpoint implementation
+- 🟨 Error handling and validation
+
+### Next Steps
+1. Resolve Python environment setup (use Python 3.11)
+2. Complete Neo4j integration for knowledge graph
+3. Implement document management endpoints
+4. Add file upload capabilities for omics data
+5. Create first frontend components### Completed (Phase 1)
+- ✅ Project structure and organization
+- ✅ Backend API skeleton with FastAPI
+- ✅ Database models (User, Project, Experiment, Protocol, Sample)
+- ✅ Authentication system with JWT
+- ✅ Basic CRUD endpoints
+- ✅ Test framework setup
+- ✅ Development environment configuration
+- ✅ Automated documentation management system
+
+### In Progress
+- 🟨 Database connections (PostgreSQL working, Neo4j pending)
+- 🟨 Complete API endpoint implementation
+- 🟨 Error handling and validation
+
+### Next Steps
+1. Resolve Python environment setup (use Python 3.11)
+2. Complete Neo4j integration for knowledge graph
+3. Implement document management endpoints
+4. Add file upload capabilities for omics data
+5. Create first frontend components### Completed (Phase 1)
+- ✅ Project structure and organization
+- ✅ Backend API skeleton with FastAPI
+- ✅ Database models (User, Project, Experiment, Protocol, Sample)
+- ✅ Authentication system with JWT
+- ✅ Basic CRUD endpoints
+- ✅ Test framework setup
+- ✅ Development environment configuration
+- ✅ Automated documentation management system
 
 ### In Progress
 - 🟨 Database connections (PostgreSQL working, Neo4j pending)
@@ -133,11 +196,37 @@ make test          # Run test suite
 
 ### Automated Testing System
 We now have a comprehensive automated testing and fixing system:
-- **smart_start.py**: Runs all checks, applies fixes, and starts server
+- **smart_start.py**: Runs all checks, applies fixes, documentation updates, and starts server
 - **preflight_check.py**: Validates code structure before startup
 - **automated_fix.py**: Detects and fixes common errors automatically
 - **tests/test_startup.py**: Comprehensive startup validation tests
 - **AUTOMATED_TESTING.md**: Full documentation of the system
+
+### Automatic Documentation Management (NEW)
+The project now includes an automatic documentation management system that runs with smart_start.py:
+- **doc_manager.py**: Basic documentation update system with change detection
+- **doc_manager_advanced.py**: Advanced system with semantic code analysis
+- **Auto-updated files**:
+  - `CLAUDE.md`: Implementation status, known issues, priorities
+  - `instructions/phase1-implementation.md`: Progress tracking
+  - `docs/api/endpoints.md`: API documentation (when endpoints exist)
+
+The documentation manager automatically:
+- Detects code changes (new models, endpoints, tests)
+- Updates implementation status sections
+- Tracks test coverage and failures
+- Identifies TODO/FIXME items in code
+- Updates progress timestamps
+- Generates API documentation from code
+
+To run documentation updates manually:
+```bash
+cd backend
+python doc_manager.py  # Basic updates
+python doc_manager_advanced.py  # Full semantic analysis
+```
+
+The system maintains a `doc_config.json` file to track file hashes and monitor changes between runs.
 
 ### Manual Testing
 ```bash
