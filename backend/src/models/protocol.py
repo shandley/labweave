@@ -24,6 +24,6 @@ class Protocol(BaseModel):
     creator = relationship("User", back_populates="protocols")
     parent = relationship("Protocol", remote_side="Protocol.id")
     
-    # Metadata
-    metadata = Column(Text)  # JSON string
+    # Extra data
+    extra_metadata = Column(Text)  # JSON string
     tags = Column(Text)  # Comma-separated tags for now

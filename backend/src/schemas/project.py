@@ -9,7 +9,7 @@ class ProjectBase(BaseModel):
     name: str
     description: Optional[str] = None
     status: str = "active"
-    metadata: Optional[str] = None
+    extra_metadata: Optional[str] = None
 
 
 class ProjectCreate(ProjectBase):

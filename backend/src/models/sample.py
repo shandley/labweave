@@ -30,5 +30,5 @@ class Sample(BaseModel):
     # Location tracking
     location = Column(String)  # Freezer, shelf, box position
     
-    # Metadata
-    metadata = Column(Text)  # JSON string for additional fields
+    # Extra data
+    extra_metadata = Column(Text)  # JSON string for additional fields

@@ -19,5 +19,5 @@ class Project(BaseModel):
     owner = relationship("User", back_populates="projects")
     experiments = relationship("Experiment", back_populates="project")
     
-    # Metadata stored as JSON
-    metadata = Column(Text)  # JSON string for now, can migrate to JSONB later
+    # Additional data stored as JSON
+    extra_metadata = Column(Text)  # JSON string for now, can migrate to JSONB later

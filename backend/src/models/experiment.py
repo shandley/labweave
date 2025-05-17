@@ -24,6 +24,6 @@ class Experiment(BaseModel):
     protocol = relationship("Protocol")
     samples = relationship("Sample", back_populates="experiment")
     
-    # Metadata and results
-    metadata = Column(Text)  # JSON string
+    # Extra data and results
+    extra_metadata = Column(Text)  # JSON string
     results = Column(Text)  # JSON string

@@ -10,7 +10,7 @@ class ExperimentBase(BaseModel):
     description: Optional[str] = None
     status: str = "planned"
     experiment_type: Optional[str] = None
-    metadata: Optional[str] = None
+    extra_metadata: Optional[str] = None
     results: Optional[str] = None
 
 
