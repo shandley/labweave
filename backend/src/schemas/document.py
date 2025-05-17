@@ -49,6 +49,13 @@ class DocumentInDBBase(DocumentBase):
     created_at: datetime
     updated_at: datetime
     
+    # Version control fields
+    version_number: int = 1
+    is_latest: bool = True
+    parent_document_id: Optional[int] = None
+    version_comment: Optional[str] = None
+    file_hash: Optional[str] = None
+    
     class Config:
         from_attributes = True
 
@@ -56,3 +63,18 @@ class DocumentInDBBase(DocumentBase):
 class Document(DocumentInDBBase):
     """Schema for document response."""
     pass
+
+
+class DocumentVersion(BaseModel):
+    """Schema for document version response."""
+    id: int
+    version_number: int
+    is_latest: bool
+    version_comment: Optional[str]
+    created_at: datetime
+    uploaded_by: int
+    file_size: Optional[int]
+    file_hash: Optional[str]
+    
+    class Config:
+        from_attributes = True

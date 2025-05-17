@@ -11,17 +11,20 @@ A comprehensive research operations platform that unifies knowledge management, 
 ### Completed ✅
 - Project structure and organization
 - Backend API skeleton with FastAPI
-- Database models (User, Project, Experiment, Protocol, Sample)
+- Database models (User, Project, Experiment, Protocol, Sample, Document)
 - Authentication system with JWT
 - Basic CRUD endpoints
 - Test framework setup
 - Development environment configuration
+- Document management system with file upload/download
+- **Version control for documents** (track document history, restore previous versions)
+- File organization with automatic structure and user customization
 
 ### In Progress 🟨
-- Database connections (PostgreSQL working, Neo4j pending)
+- Neo4j integration for knowledge graph
 - Complete API endpoint implementation
 - Error handling and validation
-- Document management system
+- Advanced document metadata extraction
 
 ## Overview
 
@@ -148,6 +151,36 @@ The API is accessible at `http://localhost:8000` when running locally.
   - `GET /api/v1/samples/{sample_id}` - Get sample details
   - `PUT /api/v1/samples/{sample_id}` - Update sample
   - `DELETE /api/v1/samples/{sample_id}` - Delete sample
+- **Documents** (with version control):
+  - `GET /api/v1/documents` - List documents (with optional latest_only filter)
+  - `POST /api/v1/documents/upload` - Upload new document
+  - `GET /api/v1/documents/{document_id}` - Get document details
+  - `GET /api/v1/documents/{document_id}/download` - Download document file
+  - `PATCH /api/v1/documents/{document_id}` - Update document metadata
+  - `DELETE /api/v1/documents/{document_id}` - Delete document
+  - `POST /api/v1/documents/{document_id}/versions` - Upload new version
+  - `GET /api/v1/documents/{document_id}/versions` - List all versions
+  - `GET /api/v1/documents/{document_id}/versions/{version_number}` - Get specific version
+  - `POST /api/v1/documents/{document_id}/restore/{version_number}` - Restore old version
+
+## Key Features
+
+### Document Management
+- **File Upload/Download**: Support for omics data formats (FASTQ, FASTA, SAM, BAM, VCF, etc.)
+- **Version Control**: Track document history, upload new versions, restore previous versions
+- **Automatic Organization**: Files organized by project/experiment with customizable structure
+- **Metadata Support**: Flexible JSON metadata and tagging system
+- **Hash Verification**: SHA256 hashes for file integrity checking
+
+### Supported File Formats
+- Sequencing data: `.fastq`, `.fq`, `.fastq.gz`, `.fq.gz`
+- Sequences: `.fasta`, `.fa`, `.fna`, `.fasta.gz`
+- Alignments: `.sam`, `.bam`
+- Variant calls: `.vcf`, `.vcf.gz`
+- Annotations: `.bed`, `.gff`, `.gtf`
+- Phylogenetic trees: `.nwk`, `.tree`, `.nxs`
+- Data tables: `.tsv`, `.csv`, `.txt`
+- Documentation: `.pdf`
 
 ## Architecture
 

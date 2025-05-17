@@ -67,9 +67,10 @@
     "/Users/scotthandley/Code/labweave/backend/src/schemas/sample.py": "6b4ae15ed153c43040a80d052b36e605",
     "/Users/scotthandley/Code/labweave/backend/src/api/v1/endpoints/protocols.py": "8568e1818e835fa55a2bafe4d8709b66",
     "/Users/scotthandley/Code/labweave/backend/src/api/v1/endpoints/samples.py": "afc1746515ad3e7b5cfed9f024c1e5f0",
-    "/Users/scotthandley/Code/labweave/backend/src/models/document.py": "d6668f471f849a10e6be2de9eee2a8bc",
-    "/Users/scotthandley/Code/labweave/backend/src/schemas/document.py": "68c16aa9df51114aeefe12e1a983db40",
-    "/Users/scotthandley/Code/labweave/backend/src/api/v1/endpoints/documents.py": "d2f77a009406d68c7390ba4635cc2f3d"
+    "/Users/scotthandley/Code/labweave/backend/src/models/document.py": "5478db0eee572e9b671c747398e940c4",
+    "/Users/scotthandley/Code/labweave/backend/src/schemas/document.py": "2a5460d3a1a6c34807addc68282e6bdd",
+    "/Users/scotthandley/Code/labweave/backend/src/api/v1/endpoints/documents.py": "8d98a7274fbc7e6903ca8168d06409e2",
+    "/Users/scotthandley/Code/labweave/backend/tests/test_document_versioning.py": "2ac84c91d740643a361076ebdac660b8"
   },
   "monitoring_paths": [
     "backend/src",
