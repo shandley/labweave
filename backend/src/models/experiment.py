@@ -23,6 +23,7 @@ class Experiment(BaseModel):
     creator = relationship("User", back_populates="experiments")
     protocol = relationship("Protocol")
     samples = relationship("Sample", back_populates="experiment")
+    documents = relationship("Document", back_populates="experiment")
     
     # Extra data and results
     extra_metadata = Column(Text)  # JSON string

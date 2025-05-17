@@ -18,6 +18,7 @@ class Project(BaseModel):
     # Relationships
     owner = relationship("User", back_populates="projects")
     experiments = relationship("Experiment", back_populates="project")
+    documents = relationship("Document", back_populates="project")
     
     # Additional data stored as JSON
     extra_metadata = Column(Text)  # JSON string for now, can migrate to JSONB later

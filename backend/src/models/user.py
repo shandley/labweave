@@ -19,3 +19,4 @@ class User(BaseModel):
     projects = relationship("Project", back_populates="owner")
     experiments = relationship("Experiment", back_populates="creator")
     protocols = relationship("Protocol", back_populates="creator")
+    uploaded_documents = relationship("Document", back_populates="uploader")
